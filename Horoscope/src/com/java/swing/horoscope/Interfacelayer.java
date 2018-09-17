@@ -1,4 +1,4 @@
-package com.java.swing.horoscope;
+ï»¿package com.java.swing.horoscope;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -103,7 +103,7 @@ public class Interfacelayer {
 		frmHoroscope.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmHoroscope.setResizable(false);
 		
-		//²Ëµ¥À¸
+		//èœå•æ 
 		JMenuBar menuBar = new JMenuBar();
 		frmHoroscope.setJMenuBar(menuBar);
 		
@@ -113,16 +113,16 @@ public class Interfacelayer {
 		JMenu mnNewMenu_2 = new JMenu("\u4E3B\u9898");
 		menuBar.add(mnNewMenu_2);
 		
-		JRadioButtonMenuItem menuItem_1 = new JRadioButtonMenuItem("Metal ·ç¸ñ");
+		JRadioButtonMenuItem menuItem_1 = new JRadioButtonMenuItem("Metal é£æ ¼");
 		mnNewMenu_2.add(menuItem_1);
 		
-		JRadioButtonMenuItem menuItem_2 = new JRadioButtonMenuItem("Nimbus ·ç¸ñ");
+		JRadioButtonMenuItem menuItem_2 = new JRadioButtonMenuItem("Nimbus é£æ ¼");
 		mnNewMenu_2.add(menuItem_2);
 		
-		JRadioButtonMenuItem menuItem_3 = new JRadioButtonMenuItem("Windows ·ç¸ñ");
+		JRadioButtonMenuItem menuItem_3 = new JRadioButtonMenuItem("Windows é£æ ¼");
 		mnNewMenu_2.add(menuItem_3);
 		
-		JRadioButtonMenuItem menuItem_4 = new JRadioButtonMenuItem("Motif ·ç¸ñ");
+		JRadioButtonMenuItem menuItem_4 = new JRadioButtonMenuItem("Motif é£æ ¼");
 		mnNewMenu_2.add(menuItem_4);
 		frmHoroscope.getContentPane().setLayout(new BoxLayout(frmHoroscope.getContentPane(), BoxLayout.X_AXIS));
 		
@@ -135,15 +135,15 @@ public class Interfacelayer {
 //		ActionListener themeListener = e -> {
 //			try {
 //				switch(e.getActionCommand()) {
-//				case "Metal ·ç¸ñ":
+//				case "Metal é£æ ¼":
 //					String lookAndFeel = UIManager.getSystemLookAndFeelClassName();
 //					UIManager.setLookAndFeel(lookAndFeel);
 //					break;
-//				case "Nimbus ·ç¸ñ":
+//				case "Nimbus é£æ ¼":
 //					break;
-//				case "Windows ·ç¸ñ":
+//				case "Windows é£æ ¼":
 //					break;
-//				case "Motif ·ç¸ñ":
+//				case "Motif é£æ ¼":
 //					break;
 //				}
 //				
@@ -158,7 +158,7 @@ public class Interfacelayer {
 //		menuItem_4.addActionListener(themeListener);
 		
 		
-		//·Ö¸îÃæ°å
+		//åˆ†å‰²é¢æ¿
 		JSplitPane splitPane_1 = new JSplitPane();
 		splitPane_1.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		splitPane_1.setDividerSize(5);
@@ -176,35 +176,35 @@ public class Interfacelayer {
 		leftPanel.setLayout(null);
 		
 		JRadioButton maleRdBtn_1 = new JRadioButton("\u7537");
-		maleRdBtn_1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.BOLD, 15));
+		maleRdBtn_1.setFont(new Font("å¾®è½¯é›…é»‘", Font.BOLD, 15));
 		maleRdBtn_1.setBounds(134, 10, 100, 35);
 		leftPanel.add(maleRdBtn_1);
 		
 		JRadioButton femaleRdBtn_2 = new JRadioButton("\u5973");
-		femaleRdBtn_2.setFont(new Font("Î¢ÈíÑÅºÚ", Font.BOLD, 15));
+		femaleRdBtn_2.setFont(new Font("å¾®è½¯é›…é»‘", Font.BOLD, 15));
 		femaleRdBtn_2.setBounds(230, 10, 100, 35);
 		leftPanel.add(femaleRdBtn_2);
 		
 		ButtonGroup group_1=new ButtonGroup();
-        group_1.add(maleRdBtn_1);
-        group_1.add(femaleRdBtn_2);
+        	group_1.add(maleRdBtn_1);
+        	group_1.add(femaleRdBtn_2);
         
-        JLabel label_1 = new JLabel("\u8BF7\u9009\u62E9\u6027\u522B\uFF1A");
-        label_1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.BOLD, 15));
-        label_1.setBounds(10, 10, 100, 35);
-        leftPanel.add(label_1);
+        	JLabel label_1 = new JLabel("\u8BF7\u9009\u62E9\u6027\u522B\uFF1A");
+        	label_1.setFont(new Font("å¾®è½¯é›…é»‘", Font.BOLD, 15));
+        	label_1.setBounds(10, 10, 100, 35);
+        	leftPanel.add(label_1);
         
-        JLabel lblNewLabel = new JLabel("\u8BF7\u9009\u62E9\u51FA\u751F\u5E74\u6708\u65E5\uFF1A");
-        lblNewLabel.setFont(new Font("Î¢ÈíÑÅºÚ", Font.BOLD, 15));
-        lblNewLabel.setBounds(10, 51, 150, 35);
-        leftPanel.add(lblNewLabel);
+        	JLabel lblNewLabel = new JLabel("\u8BF7\u9009\u62E9\u51FA\u751F\u5E74\u6708\u65E5\uFF1A");
+        	lblNewLabel.setFont(new Font("å¾®è½¯é›…é»‘", Font.BOLD, 15));
+        	lblNewLabel.setBounds(10, 51, 150, 35);
+        	leftPanel.add(lblNewLabel);
         
         
-        dateTextField_1 = new JTextField();
-        dateTextField_1.setBounds(158, 55, 200, 30);
-        dateTextField_1.setText("xxxx-xx-xx");
-        ser_1.register(dateTextField_1);
-        leftPanel.add(dateTextField_1);
+        	dateTextField_1 = new JTextField();
+        	dateTextField_1.setBounds(158, 55, 200, 30);
+        	dateTextField_1.setText("xxxx-xx-xx");
+        	ser_1.register(dateTextField_1);
+        	leftPanel.add(dateTextField_1);
    
 		
 		JPanel rightPanel = new JPanel();
@@ -212,26 +212,26 @@ public class Interfacelayer {
 		rightPanel.setLayout(null);
 		
 		JRadioButton maleRdBtn_2 = new JRadioButton("\u7537");
-		maleRdBtn_2.setFont(new Font("Î¢ÈíÑÅºÚ", Font.BOLD, 15));
+		maleRdBtn_2.setFont(new Font("å¾®è½¯é›…é»‘", Font.BOLD, 15));
 		maleRdBtn_2.setBounds(134, 10, 100, 35);
 		rightPanel.add(maleRdBtn_2);
 		
 		JRadioButton radioButton_1 = new JRadioButton("\u5973");
-		radioButton_1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.BOLD, 15));
+		radioButton_1.setFont(new Font("å¾®è½¯é›…é»‘", Font.BOLD, 15));
 		radioButton_1.setBounds(230, 10, 100, 35);
 		rightPanel.add(radioButton_1);
 		
 		ButtonGroup group_2=new ButtonGroup();
-        group_2.add(maleRdBtn_1);
-        group_2.add(femaleRdBtn_2);
+        	group_2.add(maleRdBtn_1);
+        	group_2.add(femaleRdBtn_2);
 		
 		JLabel labelRight = new JLabel("\u8BF7\u9009\u62E9\u6027\u522B\uFF1A");
-		labelRight.setFont(new Font("Î¢ÈíÑÅºÚ", Font.BOLD, 15));
+		labelRight.setFont(new Font("å¾®è½¯é›…é»‘", Font.BOLD, 15));
 		labelRight.setBounds(10, 10, 100, 35);
 		rightPanel.add(labelRight);
 		
 		JLabel label_2 = new JLabel("\u8BF7\u9009\u62E9\u51FA\u751F\u5E74\u6708\u65E5\uFF1A");
-		label_2.setFont(new Font("Î¢ÈíÑÅºÚ", Font.BOLD, 15));
+		label_2.setFont(new Font("å¾®è½¯é›…é»‘", Font.BOLD, 15));
 		label_2.setBounds(10, 51, 150, 35);
 		rightPanel.add(label_2);
 		
