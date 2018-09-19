@@ -1,4 +1,4 @@
-﻿package com.java.swing.horoscope;
+package com.java.swing.horoscope;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -45,6 +45,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.plaf.synth.SynthSpinnerUI;
 import javax.swing.event.ChangeEvent;
+import java.awt.GridLayout;
 
 public class Interfacelayer {
 
@@ -53,6 +54,8 @@ public class Interfacelayer {
 	private JTextField dateTextField_2;
 	Chooser ser_1 = Chooser.getInstance();
 	Chooser ser_2 = Chooser.getInstance();
+	private boolean sex_1 = false;
+	private boolean sex_2 = false;
 
 	/**
 	 * Launch the application.
@@ -164,6 +167,7 @@ public class Interfacelayer {
 		splitPane_1.setDividerSize(5);
 		splitPane_1.setDividerLocation(400);
 		frmHoroscope.getContentPane().add(splitPane_1);
+		splitPane_1.setEnabled(false);
 		
 		JSplitPane splitPane_2 = new JSplitPane();
 		splitPane_2.setDividerSize(5);
@@ -176,35 +180,41 @@ public class Interfacelayer {
 		leftPanel.setLayout(null);
 		
 		JRadioButton maleRdBtn_1 = new JRadioButton("\u7537");
+		maleRdBtn_1.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if(e.getStateChange() == ItemEvent.SELECTED)
+					sex_1 = true;
+			}
+		});
 		maleRdBtn_1.setFont(new Font("微软雅黑", Font.BOLD, 15));
 		maleRdBtn_1.setBounds(134, 10, 100, 35);
 		leftPanel.add(maleRdBtn_1);
 		
-		JRadioButton femaleRdBtn_2 = new JRadioButton("\u5973");
-		femaleRdBtn_2.setFont(new Font("微软雅黑", Font.BOLD, 15));
-		femaleRdBtn_2.setBounds(230, 10, 100, 35);
-		leftPanel.add(femaleRdBtn_2);
+		JRadioButton femaleRdBtn_1 = new JRadioButton("\u5973");
+		femaleRdBtn_1.setFont(new Font("微软雅黑", Font.BOLD, 15));
+		femaleRdBtn_1.setBounds(230, 10, 100, 35);
+		leftPanel.add(femaleRdBtn_1);
 		
 		ButtonGroup group_1=new ButtonGroup();
-        	group_1.add(maleRdBtn_1);
-        	group_1.add(femaleRdBtn_2);
+        group_1.add(maleRdBtn_1);
+        group_1.add(femaleRdBtn_1);
         
-        	JLabel label_1 = new JLabel("\u8BF7\u9009\u62E9\u6027\u522B\uFF1A");
-        	label_1.setFont(new Font("微软雅黑", Font.BOLD, 15));
-        	label_1.setBounds(10, 10, 100, 35);
-        	leftPanel.add(label_1);
+        JLabel label_1 = new JLabel("\u8BF7\u9009\u62E9\u6027\u522B\uFF1A");
+        label_1.setFont(new Font("微软雅黑", Font.BOLD, 15));
+        label_1.setBounds(10, 10, 100, 35);
+        leftPanel.add(label_1);
         
-        	JLabel lblNewLabel = new JLabel("\u8BF7\u9009\u62E9\u51FA\u751F\u5E74\u6708\u65E5\uFF1A");
-        	lblNewLabel.setFont(new Font("微软雅黑", Font.BOLD, 15));
-        	lblNewLabel.setBounds(10, 51, 150, 35);
-        	leftPanel.add(lblNewLabel);
+        JLabel lblNewLabel = new JLabel("\u8BF7\u9009\u62E9\u51FA\u751F\u5E74\u6708\u65E5\uFF1A");
+        lblNewLabel.setFont(new Font("微软雅黑", Font.BOLD, 15));
+        lblNewLabel.setBounds(10, 51, 150, 35);
+        leftPanel.add(lblNewLabel);
         
         
-        	dateTextField_1 = new JTextField();
-        	dateTextField_1.setBounds(158, 55, 200, 30);
-        	dateTextField_1.setText("xxxx-xx-xx");
-        	ser_1.register(dateTextField_1);
-        	leftPanel.add(dateTextField_1);
+        dateTextField_1 = new JTextField();
+        dateTextField_1.setBounds(158, 55, 200, 30);
+        dateTextField_1.setText("xxxx-xx-xx");
+        ser_1.register(dateTextField_1);
+        leftPanel.add(dateTextField_1);
    
 		
 		JPanel rightPanel = new JPanel();
@@ -212,18 +222,24 @@ public class Interfacelayer {
 		rightPanel.setLayout(null);
 		
 		JRadioButton maleRdBtn_2 = new JRadioButton("\u7537");
+		maleRdBtn_2.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if(e.getStateChange() == ItemEvent.SELECTED)
+					sex_2 = true;
+			}
+		});
 		maleRdBtn_2.setFont(new Font("微软雅黑", Font.BOLD, 15));
 		maleRdBtn_2.setBounds(134, 10, 100, 35);
 		rightPanel.add(maleRdBtn_2);
 		
-		JRadioButton radioButton_1 = new JRadioButton("\u5973");
-		radioButton_1.setFont(new Font("微软雅黑", Font.BOLD, 15));
-		radioButton_1.setBounds(230, 10, 100, 35);
-		rightPanel.add(radioButton_1);
+		JRadioButton femaleRdBtn_2 = new JRadioButton("\u5973");
+		femaleRdBtn_2.setFont(new Font("微软雅黑", Font.BOLD, 15));
+		femaleRdBtn_2.setBounds(230, 10, 100, 35);
+		rightPanel.add(femaleRdBtn_2);
 		
 		ButtonGroup group_2=new ButtonGroup();
-        	group_2.add(maleRdBtn_1);
-        	group_2.add(femaleRdBtn_2);
+        group_2.add(maleRdBtn_2);
+        group_2.add(femaleRdBtn_2);
 		
 		JLabel labelRight = new JLabel("\u8BF7\u9009\u62E9\u6027\u522B\uFF1A");
 		labelRight.setFont(new Font("微软雅黑", Font.BOLD, 15));
@@ -243,7 +259,11 @@ public class Interfacelayer {
 		
 		JPanel downPanel = new JPanel();
 		splitPane_1.setRightComponent(downPanel);
-		downPanel.setLayout(null);
+		downPanel.setLayout(new GridLayout(1, 0, 0, 0));
+		
+		JButton downButton = new JButton("Match");
+		downButton.setFont(new Font("Segoe Script", Font.BOLD, 45));
+		downPanel.add(downButton);
 		
 		
 	}
