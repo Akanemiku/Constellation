@@ -58,11 +58,9 @@ public class Interfacelayer {
 	private JTextField dateTextField_2;
 	Chooser ser_1 = Chooser.getInstance();
 	Chooser ser_2 = Chooser.getInstance();
-	private boolean sex_1 = false;
-	private boolean sex_2 = false;
-	private String date_1;
-	private String date_2;
-
+	People people_1;
+	People people_2;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -112,6 +110,8 @@ public class Interfacelayer {
 		frmHoroscope.setBounds(100, 100, 1000, 550);
 		frmHoroscope.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmHoroscope.setResizable(false);
+		people_1 = new People();
+		people_2 = new People();
 		
 		/**
 		 * 菜单栏
@@ -199,7 +199,7 @@ public class Interfacelayer {
 		maleRdBtn_1.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if(e.getStateChange() == ItemEvent.SELECTED)
-					sex_1 = true;
+					people_1.setSex(true);
 			}
 		});
 		maleRdBtn_1.setFont(new Font("微软雅黑", Font.BOLD, 15));
@@ -239,8 +239,10 @@ public class Interfacelayer {
 			@Override
 			public void insertUpdate(DocumentEvent e) {
 				// TODO Auto-generated method stub
-				date_1 = dateTextField_1.getText();
+				people_1.setDate(dateTextField_1.getText());
+				System.out.println(people_1.getDate()+" "+people_1.isSex());
 			}
+			
 			@Override
 			public void removeUpdate(DocumentEvent e) {}
 			@Override
@@ -259,7 +261,7 @@ public class Interfacelayer {
 		maleRdBtn_2.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if(e.getStateChange() == ItemEvent.SELECTED)
-					sex_2 = true;
+					people_2.setSex(true);
 			}
 		});
 		maleRdBtn_2.setFont(new Font("微软雅黑", Font.BOLD, 15));
@@ -299,9 +301,9 @@ public class Interfacelayer {
 			@Override
 			public void insertUpdate(DocumentEvent e) {
 				// TODO Auto-generated method stub
-				date_2 = dateTextField_2.getText();
+				people_2.setDate(dateTextField_2.getText());
 			}
-
+			
 			@Override
 			public void removeUpdate(DocumentEvent e) {}
 			@Override
@@ -316,7 +318,22 @@ public class Interfacelayer {
 		splitPane_1.setRightComponent(downPanel);
 		downPanel.setLayout(new GridLayout(1, 0, 0, 0));
 		
+		/**
+		 * 匹配按钮及切换容器
+		 * */
 		JButton downButton = new JButton("Match");
+		downButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {
+					Resultlayer window = new Resultlayer();
+					window.getFrmResult().setVisible(true);
+					frmHoroscope.setVisible(false);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		downButton.setFont(new Font("Segoe Script", Font.BOLD, 45));
 		downPanel.add(downButton);
 		
