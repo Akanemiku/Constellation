@@ -1,4 +1,4 @@
-﻿package com.java.swing.horoscope;
+package com.java.swing.horoscope;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -43,8 +43,13 @@ import java.awt.event.ItemEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.plaf.synth.SynthSpinnerUI;
+import javax.swing.text.Document;
 import javax.swing.event.ChangeEvent;
+import java.awt.GridLayout;
+
 
 public class Interfacelayer {
 
@@ -53,7 +58,9 @@ public class Interfacelayer {
 	private JTextField dateTextField_2;
 	Chooser ser_1 = Chooser.getInstance();
 	Chooser ser_2 = Chooser.getInstance();
-
+	People people_1;
+	People people_2;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -89,6 +96,7 @@ public class Interfacelayer {
 	/**
 	 * Create the application.
 	 */
+	
 	public Interfacelayer() {
 		initialize();
 	}
@@ -102,8 +110,12 @@ public class Interfacelayer {
 		frmHoroscope.setBounds(100, 100, 1000, 550);
 		frmHoroscope.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmHoroscope.setResizable(false);
+		people_1 = new People();
+		people_2 = new People();
 		
-		//菜单栏
+		/**
+		 * 菜单栏
+		 * */
 		JMenuBar menuBar = new JMenuBar();
 		frmHoroscope.setJMenuBar(menuBar);
 		
@@ -157,13 +169,18 @@ public class Interfacelayer {
 //		menuItem_3.addActionListener(themeListener);
 //		menuItem_4.addActionListener(themeListener);
 		
-		
-		//分割面板
+		/**
+		 * 分割面板
+		 * @Description:
+		 * splitPane_1:上下分割面板
+		 * splitPane_2:左右分割面板
+		 * */
 		JSplitPane splitPane_1 = new JSplitPane();
 		splitPane_1.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		splitPane_1.setDividerSize(5);
 		splitPane_1.setDividerLocation(400);
 		frmHoroscope.getContentPane().add(splitPane_1);
+		splitPane_1.setEnabled(false);
 		
 		JSplitPane splitPane_2 = new JSplitPane();
 		splitPane_2.setDividerSize(5);
@@ -171,59 +188,94 @@ public class Interfacelayer {
 		splitPane_1.setLeftComponent(splitPane_2);
 		splitPane_2.setEnabled(false);
 		
+		/**
+		 * 左面板及其控件
+		 * */
 		JPanel leftPanel = new JPanel();
 		splitPane_2.setLeftComponent(leftPanel);
 		leftPanel.setLayout(null);
 		
 		JRadioButton maleRdBtn_1 = new JRadioButton("\u7537");
+		maleRdBtn_1.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if(e.getStateChange() == ItemEvent.SELECTED)
+					people_1.setSex(true);
+			}
+		});
 		maleRdBtn_1.setFont(new Font("微软雅黑", Font.BOLD, 15));
 		maleRdBtn_1.setBounds(134, 10, 100, 35);
 		leftPanel.add(maleRdBtn_1);
 		
-		JRadioButton femaleRdBtn_2 = new JRadioButton("\u5973");
-		femaleRdBtn_2.setFont(new Font("微软雅黑", Font.BOLD, 15));
-		femaleRdBtn_2.setBounds(230, 10, 100, 35);
-		leftPanel.add(femaleRdBtn_2);
+		JRadioButton femaleRdBtn_1 = new JRadioButton("\u5973");
+		femaleRdBtn_1.setFont(new Font("微软雅黑", Font.BOLD, 15));
+		femaleRdBtn_1.setBounds(230, 10, 100, 35);
+		leftPanel.add(femaleRdBtn_1);
 		
 		ButtonGroup group_1=new ButtonGroup();
-        	group_1.add(maleRdBtn_1);
-        	group_1.add(femaleRdBtn_2);
+        group_1.add(maleRdBtn_1);
+        group_1.add(femaleRdBtn_1);
         
-        	JLabel label_1 = new JLabel("\u8BF7\u9009\u62E9\u6027\u522B\uFF1A");
-        	label_1.setFont(new Font("微软雅黑", Font.BOLD, 15));
-        	label_1.setBounds(10, 10, 100, 35);
-        	leftPanel.add(label_1);
+        JLabel label_1 = new JLabel("\u8BF7\u9009\u62E9\u6027\u522B\uFF1A");
+        label_1.setFont(new Font("微软雅黑", Font.BOLD, 15));
+        label_1.setBounds(10, 10, 100, 35);
+        leftPanel.add(label_1);
         
-        	JLabel lblNewLabel = new JLabel("\u8BF7\u9009\u62E9\u51FA\u751F\u5E74\u6708\u65E5\uFF1A");
-        	lblNewLabel.setFont(new Font("微软雅黑", Font.BOLD, 15));
-        	lblNewLabel.setBounds(10, 51, 150, 35);
-        	leftPanel.add(lblNewLabel);
+        JLabel lblNewLabel = new JLabel("\u8BF7\u9009\u62E9\u51FA\u751F\u5E74\u6708\u65E5\uFF1A");
+        lblNewLabel.setFont(new Font("微软雅黑", Font.BOLD, 15));
+        lblNewLabel.setBounds(10, 51, 150, 35);
+        leftPanel.add(lblNewLabel);
         
-        
-        	dateTextField_1 = new JTextField();
-        	dateTextField_1.setBounds(158, 55, 200, 30);
-        	dateTextField_1.setText("xxxx-xx-xx");
-        	ser_1.register(dateTextField_1);
-        	leftPanel.add(dateTextField_1);
+        /**
+         * 日历控件
+         * */
+        dateTextField_1 = new JTextField();
+        dateTextField_1.setBounds(158, 55, 200, 30);
+        dateTextField_1.setText("xxxx-xx-xx");
+        ser_1.register(dateTextField_1);
+        leftPanel.add(dateTextField_1);
+        Document dt_1 = dateTextField_1.getDocument();
+        dt_1.addDocumentListener(new DocumentListener() {
+
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				people_1.setDate(dateTextField_1.getText());
+				System.out.println(people_1.getDate()+" "+people_1.isSex());
+			}
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {}
+			@Override
+			public void changedUpdate(DocumentEvent e) {}
+        	
+        });
    
-		
+        /**
+         * 右面版及其控件
+         * */
 		JPanel rightPanel = new JPanel();
 		splitPane_2.setRightComponent(rightPanel);
 		rightPanel.setLayout(null);
 		
 		JRadioButton maleRdBtn_2 = new JRadioButton("\u7537");
+		maleRdBtn_2.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if(e.getStateChange() == ItemEvent.SELECTED)
+					people_2.setSex(true);
+			}
+		});
 		maleRdBtn_2.setFont(new Font("微软雅黑", Font.BOLD, 15));
 		maleRdBtn_2.setBounds(134, 10, 100, 35);
 		rightPanel.add(maleRdBtn_2);
 		
-		JRadioButton radioButton_1 = new JRadioButton("\u5973");
-		radioButton_1.setFont(new Font("微软雅黑", Font.BOLD, 15));
-		radioButton_1.setBounds(230, 10, 100, 35);
-		rightPanel.add(radioButton_1);
+		JRadioButton femaleRdBtn_2 = new JRadioButton("\u5973");
+		femaleRdBtn_2.setFont(new Font("微软雅黑", Font.BOLD, 15));
+		femaleRdBtn_2.setBounds(230, 10, 100, 35);
+		rightPanel.add(femaleRdBtn_2);
 		
 		ButtonGroup group_2=new ButtonGroup();
-        	group_2.add(maleRdBtn_1);
-        	group_2.add(femaleRdBtn_2);
+        group_2.add(maleRdBtn_2);
+        group_2.add(femaleRdBtn_2);
 		
 		JLabel labelRight = new JLabel("\u8BF7\u9009\u62E9\u6027\u522B\uFF1A");
 		labelRight.setFont(new Font("微软雅黑", Font.BOLD, 15));
@@ -234,16 +286,56 @@ public class Interfacelayer {
 		label_2.setFont(new Font("微软雅黑", Font.BOLD, 15));
 		label_2.setBounds(10, 51, 150, 35);
 		rightPanel.add(label_2);
-		
+				
+		/**
+         * 日历控件
+         * */		
 		dateTextField_2 = new JTextField();
 		dateTextField_2.setText("xxxx-xx-xx");
 		dateTextField_2.setBounds(158, 55, 200, 30);
 		ser_2.register(dateTextField_2);
 		rightPanel.add(dateTextField_2);
+		Document dt_2 = dateTextField_2.getDocument();
+        dt_2.addDocumentListener(new DocumentListener() {
+
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				people_2.setDate(dateTextField_2.getText());
+			}
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {}
+			@Override
+			public void changedUpdate(DocumentEvent e) {}
+        	
+        });
 		
+		/**
+		 * 下方面板及其控件
+		 * */
 		JPanel downPanel = new JPanel();
 		splitPane_1.setRightComponent(downPanel);
-		downPanel.setLayout(null);
+		downPanel.setLayout(new GridLayout(1, 0, 0, 0));
+		
+		/**
+		 * 匹配按钮及切换容器
+		 * */
+		JButton downButton = new JButton("Match");
+		downButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {
+					Resultlayer window = new Resultlayer();
+					window.getFrmResult().setVisible(true);
+					frmHoroscope.setVisible(false);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		downButton.setFont(new Font("Segoe Script", Font.BOLD, 45));
+		downPanel.add(downButton);
 		
 		
 	}
