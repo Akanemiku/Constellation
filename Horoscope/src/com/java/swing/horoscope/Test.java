@@ -3,13 +3,14 @@ package com.java.swing.horoscope;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
 
-public class Resultlayer {
+public class Test {
 
-	private JFrame frmResult;
-	public JFrame getFrmResult() {
-		return frmResult;
-	}
+	private JFrame frame;
+
 	/**
 	 * Launch the application.
 	 */
@@ -17,8 +18,8 @@ public class Resultlayer {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Resultlayer window = new Resultlayer();
-					window.frmResult.setVisible(true);
+					Test window = new Test();
+					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -29,7 +30,7 @@ public class Resultlayer {
 	/**
 	 * Create the application.
 	 */
-	public Resultlayer() {
+	public Test() {
 		initialize();
 	}
 
@@ -37,11 +38,10 @@ public class Resultlayer {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmResult = new JFrame();
-		frmResult.setTitle("Result");
-		frmResult.setBounds(100, 100, 450, 300);
-		frmResult.setLocationRelativeTo(null);//¥∞ÃÂæ”÷–œ‘ æ
-		frmResult.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame = new JFrame();
+		frame.setBounds(100, 100, 450, 300);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
 	}
 
 }

@@ -27,17 +27,21 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.ImageIcon;
 import javax.swing.JMenuItem;
 import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JDialog;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.Action;
+import javax.swing.BorderFactory;
+
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.MouseAdapter;
@@ -47,8 +51,13 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.plaf.synth.SynthSpinnerUI;
 import javax.swing.text.Document;
+
+import com.alee.laf.WebLookAndFeel;
+
 import javax.swing.event.ChangeEvent;
 import java.awt.GridLayout;
+import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
 
 
 public class Interfacelayer {
@@ -60,6 +69,7 @@ public class Interfacelayer {
 	Chooser ser_2 = Chooser.getInstance();
 	People people_1;
 	People people_2;
+	private JTextArea textArea;
 	
 	/**
 	 * Launch the application.
@@ -81,6 +91,15 @@ public class Interfacelayer {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+//		SwingUtilities.invokeLater ( new Runnable ()
+//        {
+//            public void run ()
+//            {
+//                // Install WebLaF as application L&F
+//                WebLookAndFeel.install ();
+//            }
+//        } );
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -108,72 +127,35 @@ public class Interfacelayer {
 		frmHoroscope = new JFrame();
 		frmHoroscope.setTitle("Horoscope");
 		frmHoroscope.setBounds(100, 100, 1000, 550);
-		frmHoroscope.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmHoroscope.setLocationRelativeTo(null);//´°Ìå¾ÓÖĞÏÔÊ¾
+		frmHoroscope.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//¹Ø±Õµ±Ç°´°¿Ú
 		frmHoroscope.setResizable(false);
 		people_1 = new People();
 		people_2 = new People();
-		
+
 		/**
-		 * èœå•æ 
+		 * ²Ëµ¥À¸
 		 * */
 		JMenuBar menuBar = new JMenuBar();
 		frmHoroscope.setJMenuBar(menuBar);
 		
-		JMenu mnNewMenu_1 = new JMenu("\u65B0\u5EFA");
+		JMenu mnNewMenu_1 = new JMenu("New");
+		mnNewMenu_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Interfacelayer window = new Interfacelayer();
+				window.frmHoroscope.setVisible(true);
+			}
+		});
+		mnNewMenu_1.setFont(new Font("Segoe Script", Font.BOLD, 14));
 		menuBar.add(mnNewMenu_1);
-		
-		JMenu mnNewMenu_2 = new JMenu("\u4E3B\u9898");
-		menuBar.add(mnNewMenu_2);
-		
-		JRadioButtonMenuItem menuItem_1 = new JRadioButtonMenuItem("Metal é£æ ¼");
-		mnNewMenu_2.add(menuItem_1);
-		
-		JRadioButtonMenuItem menuItem_2 = new JRadioButtonMenuItem("Nimbus é£æ ¼");
-		mnNewMenu_2.add(menuItem_2);
-		
-		JRadioButtonMenuItem menuItem_3 = new JRadioButtonMenuItem("Windows é£æ ¼");
-		mnNewMenu_2.add(menuItem_3);
-		
-		JRadioButtonMenuItem menuItem_4 = new JRadioButtonMenuItem("Motif é£æ ¼");
-		mnNewMenu_2.add(menuItem_4);
 		frmHoroscope.getContentPane().setLayout(new BoxLayout(frmHoroscope.getContentPane(), BoxLayout.X_AXIS));
 		
-		ButtonGroup groupMenu=new ButtonGroup();
-		groupMenu.add(menuItem_1);
-		groupMenu.add(menuItem_2);
-		groupMenu.add(menuItem_3);
-		groupMenu.add(menuItem_4);
-		
-//		ActionListener themeListener = e -> {
-//			try {
-//				switch(e.getActionCommand()) {
-//				case "Metal é£æ ¼":
-//					String lookAndFeel = UIManager.getSystemLookAndFeelClassName();
-//					UIManager.setLookAndFeel(lookAndFeel);
-//					break;
-//				case "Nimbus é£æ ¼":
-//					break;
-//				case "Windows é£æ ¼":
-//					break;
-//				case "Motif é£æ ¼":
-//					break;
-//				}
-//				
-//			}catch(Exception ee){
-//				ee.printStackTrace();
-//			}
-//		};
-//		
-//		menuItem_1.addActionListener(themeListener);
-//		menuItem_2.addActionListener(themeListener);
-//		menuItem_3.addActionListener(themeListener);
-//		menuItem_4.addActionListener(themeListener);
-		
 		/**
-		 * åˆ†å‰²é¢æ¿
-		 * @Description:
-		 * splitPane_1:ä¸Šä¸‹åˆ†å‰²é¢æ¿
-		 * splitPane_2:å·¦å³åˆ†å‰²é¢æ¿
+		 * ·Ö¸îÃæ°å
+		 * @Description
+		 * splitPane_1:ÉÏÏÂ·Ö¸îÃæ°å
+		 * splitPane_2:×óÓÒ·Ö¸îÃæ°å
 		 * */
 		JSplitPane splitPane_1 = new JSplitPane();
 		splitPane_1.setOrientation(JSplitPane.VERTICAL_SPLIT);
@@ -184,12 +166,12 @@ public class Interfacelayer {
 		
 		JSplitPane splitPane_2 = new JSplitPane();
 		splitPane_2.setDividerSize(5);
-		splitPane_2.setDividerLocation(480);
+		splitPane_2.setDividerLocation(490);
 		splitPane_1.setLeftComponent(splitPane_2);
 		splitPane_2.setEnabled(false);
 		
 		/**
-		 * å·¦é¢æ¿åŠå…¶æ§ä»¶
+		 * ×óÃæ°å¼°Æä¿Ø¼ş
 		 * */
 		JPanel leftPanel = new JPanel();
 		splitPane_2.setLeftComponent(leftPanel);
@@ -202,12 +184,18 @@ public class Interfacelayer {
 					people_1.setSex(true);
 			}
 		});
-		maleRdBtn_1.setFont(new Font("å¾®è½¯é›…é»‘", Font.BOLD, 15));
+		maleRdBtn_1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.BOLD, 15));
 		maleRdBtn_1.setBounds(134, 10, 100, 35);
 		leftPanel.add(maleRdBtn_1);
 		
 		JRadioButton femaleRdBtn_1 = new JRadioButton("\u5973");
-		femaleRdBtn_1.setFont(new Font("å¾®è½¯é›…é»‘", Font.BOLD, 15));
+		femaleRdBtn_1.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if(e.getStateChange() == ItemEvent.SELECTED)
+					people_1.setSex(false);
+			}
+		});
+		femaleRdBtn_1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.BOLD, 15));
 		femaleRdBtn_1.setBounds(230, 10, 100, 35);
 		leftPanel.add(femaleRdBtn_1);
 		
@@ -216,17 +204,17 @@ public class Interfacelayer {
         group_1.add(femaleRdBtn_1);
         
         JLabel label_1 = new JLabel("\u8BF7\u9009\u62E9\u6027\u522B\uFF1A");
-        label_1.setFont(new Font("å¾®è½¯é›…é»‘", Font.BOLD, 15));
+        label_1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.BOLD, 15));
         label_1.setBounds(10, 10, 100, 35);
         leftPanel.add(label_1);
         
         JLabel lblNewLabel = new JLabel("\u8BF7\u9009\u62E9\u51FA\u751F\u5E74\u6708\u65E5\uFF1A");
-        lblNewLabel.setFont(new Font("å¾®è½¯é›…é»‘", Font.BOLD, 15));
+        lblNewLabel.setFont(new Font("Î¢ÈíÑÅºÚ", Font.BOLD, 15));
         lblNewLabel.setBounds(10, 51, 150, 35);
         leftPanel.add(lblNewLabel);
         
         /**
-         * æ—¥å†æ§ä»¶
+         * ÈÕÀú¿Ø¼ş
          * */
         dateTextField_1 = new JTextField();
         dateTextField_1.setBounds(158, 55, 200, 30);
@@ -240,7 +228,6 @@ public class Interfacelayer {
 			public void insertUpdate(DocumentEvent e) {
 				// TODO Auto-generated method stub
 				people_1.setDate(dateTextField_1.getText());
-				System.out.println(people_1.getDate()+" "+people_1.isSex());
 			}
 			
 			@Override
@@ -249,9 +236,53 @@ public class Interfacelayer {
 			public void changedUpdate(DocumentEvent e) {}
         	
         });
+        
+        JScrollPane scrollPane_1 = new JScrollPane();
+        scrollPane_1.setBounds(230, 102, 249, 277);
+        leftPanel.add(scrollPane_1);
+        
+        textArea = new JTextArea();
+        textArea.setFont(new Font("»ªÎÄ¿¬Ìå", Font.BOLD, 18));
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+        scrollPane_1.setViewportView(textArea);
+        
+        JPanel panel = new JPanel();
+        JLabel label = new JLabel();
+        panel.setBorder(BorderFactory.createTitledBorder("Ë®Æ½×ù"));
+        panel.setBounds(0, 96, 232, 286);	        
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        label.setBounds(0, 0, 210, 245);
+        panel.add(label);
+        leftPanel.add(panel);
+        label.setIcon(new ImageIcon("D:\\Java\\Eclipse\\Horoscopes\\src\\com\\java\\swing\\horoscope\\"+1+".jpg"));
+        
+        JButton doneBtn_1 = new JButton("Done");
+        doneBtn_1.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+        		textArea.setText("");
+//        		System.out.println(people_1.getDate()+" "+people_1.isSex());
+        		people_1.birthday();
+        		for(int i=0;i<3;i++) {
+//        			System.out.println(people_1.EZ().list.get(i));
+        			textArea.append(people_1.EZ(0).list.get(i));
+        			if(i!=2)
+        				textArea.append("\n"+"¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª"+"\n");
+        		}
+//        		System.out.println(people_1.getMonth()+" "+people_1.getDay());
+        		
+        	}
+        });
+        doneBtn_1.setFont(new Font("Segoe Script", Font.BOLD, 15));
+        doneBtn_1.setBounds(368, 53, 73, 33);
+        leftPanel.add(doneBtn_1);
+        
+		
+        
    
         /**
-         * å³é¢ç‰ˆåŠå…¶æ§ä»¶
+         * ÓÒÃæ°æ¼°Æä¿Ø¼ş
          * */
 		JPanel rightPanel = new JPanel();
 		splitPane_2.setRightComponent(rightPanel);
@@ -264,12 +295,18 @@ public class Interfacelayer {
 					people_2.setSex(true);
 			}
 		});
-		maleRdBtn_2.setFont(new Font("å¾®è½¯é›…é»‘", Font.BOLD, 15));
+		maleRdBtn_2.setFont(new Font("Î¢ÈíÑÅºÚ", Font.BOLD, 15));
 		maleRdBtn_2.setBounds(134, 10, 100, 35);
 		rightPanel.add(maleRdBtn_2);
 		
 		JRadioButton femaleRdBtn_2 = new JRadioButton("\u5973");
-		femaleRdBtn_2.setFont(new Font("å¾®è½¯é›…é»‘", Font.BOLD, 15));
+		femaleRdBtn_2.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if(e.getStateChange() == ItemEvent.SELECTED)
+					people_2.setSex(false);
+			}
+		});
+		femaleRdBtn_2.setFont(new Font("Î¢ÈíÑÅºÚ", Font.BOLD, 15));
 		femaleRdBtn_2.setBounds(230, 10, 100, 35);
 		rightPanel.add(femaleRdBtn_2);
 		
@@ -278,17 +315,17 @@ public class Interfacelayer {
         group_2.add(femaleRdBtn_2);
 		
 		JLabel labelRight = new JLabel("\u8BF7\u9009\u62E9\u6027\u522B\uFF1A");
-		labelRight.setFont(new Font("å¾®è½¯é›…é»‘", Font.BOLD, 15));
+		labelRight.setFont(new Font("Î¢ÈíÑÅºÚ", Font.BOLD, 15));
 		labelRight.setBounds(10, 10, 100, 35);
 		rightPanel.add(labelRight);
 		
 		JLabel label_2 = new JLabel("\u8BF7\u9009\u62E9\u51FA\u751F\u5E74\u6708\u65E5\uFF1A");
-		label_2.setFont(new Font("å¾®è½¯é›…é»‘", Font.BOLD, 15));
+		label_2.setFont(new Font("Î¢ÈíÑÅºÚ", Font.BOLD, 15));
 		label_2.setBounds(10, 51, 150, 35);
 		rightPanel.add(label_2);
 				
 		/**
-         * æ—¥å†æ§ä»¶
+         * ÈÕÀú¿Ø¼ş
          * */		
 		dateTextField_2 = new JTextField();
 		dateTextField_2.setText("xxxx-xx-xx");
@@ -310,16 +347,44 @@ public class Interfacelayer {
 			public void changedUpdate(DocumentEvent e) {}
         	
         });
+        
+        JScrollPane scrollPane_2 = new JScrollPane();
+		scrollPane_2.setBounds(230, 102, 249, 277);
+		rightPanel.add(scrollPane_2);
+		
+		JTextArea textArea_2 = new JTextArea();
+        textArea_2.setFont(new Font("»ªÎÄ¿¬Ìå", Font.BOLD, 18));
+        textArea_2.setLineWrap(true);
+        textArea_2.setWrapStyleWord(true);
+		scrollPane_2.setViewportView(textArea_2);
+        
+        JButton doneBtn_2 = new JButton("Done");
+		doneBtn_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				textArea_2.setText("");
+				people_2.birthday();
+        		for(int i=0;i<3;i++) {
+        			textArea_2.append(people_2.EZ(0).list.get(i));
+        			if(i!=2)
+        				textArea_2.append("\n"+"¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª"+"\n");
+        		}
+			}
+		});
+		doneBtn_2.setFont(new Font("Segoe Script", Font.BOLD, 15));
+		doneBtn_2.setBounds(368, 53, 73, 33);
+		rightPanel.add(doneBtn_2);
+				
 		
 		/**
-		 * ä¸‹æ–¹é¢æ¿åŠå…¶æ§ä»¶
+		 * ÏÂ·½Ãæ°å¼°Æä¿Ø¼ş
 		 * */
 		JPanel downPanel = new JPanel();
 		splitPane_1.setRightComponent(downPanel);
 		downPanel.setLayout(new GridLayout(1, 0, 0, 0));
 		
 		/**
-		 * åŒ¹é…æŒ‰é’®åŠåˆ‡æ¢å®¹å™¨
+		 * Æ¥Åä°´Å¥¼°ÇĞ»»ÈİÆ÷
 		 * */
 		JButton downButton = new JButton("Match");
 		downButton.addMouseListener(new MouseAdapter() {
