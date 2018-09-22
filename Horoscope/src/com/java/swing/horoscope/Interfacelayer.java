@@ -32,6 +32,7 @@ import java.io.IOException;
 import javax.swing.ImageIcon;
 import javax.swing.JMenuItem;
 import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JDialog;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
@@ -47,8 +48,12 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.plaf.synth.SynthSpinnerUI;
 import javax.swing.text.Document;
+
+
 import javax.swing.event.ChangeEvent;
 import java.awt.GridLayout;
+import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
 
 
 public class Interfacelayer {
@@ -81,6 +86,7 @@ public class Interfacelayer {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -184,7 +190,7 @@ public class Interfacelayer {
 		
 		JSplitPane splitPane_2 = new JSplitPane();
 		splitPane_2.setDividerSize(5);
-		splitPane_2.setDividerLocation(480);
+		splitPane_2.setDividerLocation(490);
 		splitPane_1.setLeftComponent(splitPane_2);
 		splitPane_2.setEnabled(false);
 		
@@ -207,6 +213,12 @@ public class Interfacelayer {
 		leftPanel.add(maleRdBtn_1);
 		
 		JRadioButton femaleRdBtn_1 = new JRadioButton("\u5973");
+		femaleRdBtn_1.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if(e.getStateChange() == ItemEvent.SELECTED)
+					people_1.setSex(false);
+			}
+		});
 		femaleRdBtn_1.setFont(new Font("微软雅黑", Font.BOLD, 15));
 		femaleRdBtn_1.setBounds(230, 10, 100, 35);
 		leftPanel.add(femaleRdBtn_1);
@@ -240,7 +252,6 @@ public class Interfacelayer {
 			public void insertUpdate(DocumentEvent e) {
 				// TODO Auto-generated method stub
 				people_1.setDate(dateTextField_1.getText());
-				System.out.println(people_1.getDate()+" "+people_1.isSex());
 			}
 			
 			@Override
@@ -249,6 +260,23 @@ public class Interfacelayer {
 			public void changedUpdate(DocumentEvent e) {}
         	
         });
+        JButton doneBtn_1 = new JButton("Done");
+        doneBtn_1.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+        		System.out.println(people_1.getDate()+" "+people_1.isSex());
+        	}
+        });
+        doneBtn_1.setFont(new Font("Segoe Script", Font.BOLD, 15));
+        doneBtn_1.setBounds(368, 53, 73, 33);
+        leftPanel.add(doneBtn_1);
+        
+        JScrollPane scrollPane_1 = new JScrollPane();
+        scrollPane_1.setBounds(230, 95, 249, 292);
+        leftPanel.add(scrollPane_1);
+        
+        JTextArea textArea_1 = new JTextArea();
+        scrollPane_1.setViewportView(textArea_1);
    
         /**
          * 右面版及其控件
@@ -269,6 +297,12 @@ public class Interfacelayer {
 		rightPanel.add(maleRdBtn_2);
 		
 		JRadioButton femaleRdBtn_2 = new JRadioButton("\u5973");
+		femaleRdBtn_2.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if(e.getStateChange() == ItemEvent.SELECTED)
+					people_2.setSex(false);
+			}
+		});
 		femaleRdBtn_2.setFont(new Font("微软雅黑", Font.BOLD, 15));
 		femaleRdBtn_2.setBounds(230, 10, 100, 35);
 		rightPanel.add(femaleRdBtn_2);
@@ -310,6 +344,24 @@ public class Interfacelayer {
 			public void changedUpdate(DocumentEvent e) {}
         	
         });
+        
+        JButton doneBtn_2 = new JButton("Done");
+		doneBtn_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println(people_1.getDate()+" "+people_1.isSex());
+			}
+		});
+		doneBtn_2.setFont(new Font("Segoe Script", Font.BOLD, 15));
+		doneBtn_2.setBounds(368, 53, 73, 33);
+		rightPanel.add(doneBtn_2);
+		
+		JScrollPane scrollPane_2 = new JScrollPane();
+		scrollPane_2.setBounds(230, 95, 249, 292);
+		rightPanel.add(scrollPane_2);
+		
+		JTextArea textArea_2 = new JTextArea();
+		scrollPane_2.setViewportView(textArea_2);
 		
 		/**
 		 * 下方面板及其控件
