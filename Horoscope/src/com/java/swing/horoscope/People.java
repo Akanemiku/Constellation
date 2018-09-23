@@ -14,14 +14,14 @@ public class People {
 	private int day = 0;
 	Datas data;
 
-	public void birthday() {
+	public int birthday() {
 		this.month = Integer.parseInt(getDate().substring(5, 7));
 		this.day = Integer.parseInt(getDate().substring(8, 10));
 		data = new Datas(month, day);
+		return data.getMark();
 	}
 
 	public Datas EZ(int a) {
-		if(a==1) {data = new Datas();}
 		return data;
 	}
 
