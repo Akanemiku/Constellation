@@ -75,30 +75,30 @@ public class Interfacelayer {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) { 
-		String lookAndFeel = UIManager.getSystemLookAndFeelClassName();
-		try {
-			UIManager.setLookAndFeel(lookAndFeel);
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (InstantiationException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IllegalAccessException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (UnsupportedLookAndFeelException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-//		SwingUtilities.invokeLater ( new Runnable ()
-//        {
-//            public void run ()
-//            {
-//                // Install WebLaF as application L&F
-//                WebLookAndFeel.install ();
-//            }
-//        } );
+//		String lookAndFeel = UIManager.getSystemLookAndFeelClassName();
+//		try {
+//			UIManager.setLookAndFeel(lookAndFeel);
+//		} catch (ClassNotFoundException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		} catch (InstantiationException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		} catch (IllegalAccessException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		} catch (UnsupportedLookAndFeelException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+		SwingUtilities.invokeLater ( new Runnable ()
+        {
+            public void run ()
+            {
+                // Install WebLaF as application L&F
+                WebLookAndFeel.install ();
+            }
+        } );
 
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -139,16 +139,19 @@ public class Interfacelayer {
 		JMenuBar menuBar = new JMenuBar();
 		frmHoroscope.setJMenuBar(menuBar);
 		
-		JMenu mnNewMenu_1 = new JMenu("New");
-		mnNewMenu_1.addMouseListener(new MouseAdapter() {
+		JMenu mnNew = new JMenu("New");
+		mnNew.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				Interfacelayer window = new Interfacelayer();
 				window.frmHoroscope.setVisible(true);
 			}
 		});
-		mnNewMenu_1.setFont(new Font("Segoe Script", Font.BOLD, 14));
-		menuBar.add(mnNewMenu_1);
+		mnNew.setFont(new Font("Segoe Script", Font.BOLD, 14));
+		menuBar.add(mnNew);
+		
+		JMenu mnAbout = new JMenu("About");
+		menuBar.add(mnAbout);
 		frmHoroscope.getContentPane().setLayout(new BoxLayout(frmHoroscope.getContentPane(), BoxLayout.X_AXIS));
 		
 		/**
@@ -203,15 +206,15 @@ public class Interfacelayer {
         group_1.add(maleRdBtn_1);
         group_1.add(femaleRdBtn_1);
         
-        JLabel label_1 = new JLabel("\u8BF7\u9009\u62E9\u6027\u522B\uFF1A");
-        label_1.setFont(new Font("微软雅黑", Font.BOLD, 15));
-        label_1.setBounds(10, 10, 100, 35);
-        leftPanel.add(label_1);
+        JLabel labelLeft = new JLabel("\u8BF7\u9009\u62E9\u6027\u522B\uFF1A");
+        labelLeft.setFont(new Font("微软雅黑", Font.BOLD, 15));
+        labelLeft.setBounds(10, 10, 100, 35);
+        leftPanel.add(labelLeft);
         
-        JLabel lblNewLabel = new JLabel("\u8BF7\u9009\u62E9\u51FA\u751F\u5E74\u6708\u65E5\uFF1A");
-        lblNewLabel.setFont(new Font("微软雅黑", Font.BOLD, 15));
-        lblNewLabel.setBounds(10, 51, 150, 35);
-        leftPanel.add(lblNewLabel);
+        JLabel birthLabel_1 = new JLabel("\u8BF7\u9009\u62E9\u51FA\u751F\u5E74\u6708\u65E5\uFF1A");
+        birthLabel_1.setFont(new Font("微软雅黑", Font.BOLD, 15));
+        birthLabel_1.setBounds(10, 51, 150, 35);
+        leftPanel.add(birthLabel_1);
         
         /**
          * 日历控件
@@ -237,6 +240,10 @@ public class Interfacelayer {
         	
         });
         
+        
+        /**
+         * 文字面板
+         * */
         JScrollPane scrollPane_1 = new JScrollPane();
         scrollPane_1.setBounds(230, 102, 249, 277);
         leftPanel.add(scrollPane_1);
@@ -247,15 +254,18 @@ public class Interfacelayer {
         textArea.setWrapStyleWord(true);
         scrollPane_1.setViewportView(textArea);
         
-        JPanel panel = new JPanel();
-        JLabel label = new JLabel();
-        panel.setBorder(BorderFactory.createTitledBorder("水平座"));
-        panel.setBounds(0, 96, 232, 286);	        
-        label.setHorizontalAlignment(SwingConstants.CENTER);
-        label.setBounds(0, 0, 210, 245);
-        panel.add(label);
-        leftPanel.add(panel);
-        label.setIcon(new ImageIcon("D:\\Java\\Eclipse\\Horoscopes\\src\\com\\java\\swing\\horoscope\\"+1+".jpg"));
+        /**
+         * 图片面包
+         * */
+        JPanel picPanel_1 = new JPanel();
+        JLabel picLabel_1 = new JLabel();
+        picPanel_1.setBorder(BorderFactory.createTitledBorder("E-Z"));
+        picPanel_1.setBounds(0, 96, 232, 286);	        
+        picLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+        picLabel_1.setBounds(0, 0, 210, 245);
+        picPanel_1.add(picLabel_1);
+        leftPanel.add(picPanel_1);
+        //picLabel_1.setIcon(new ImageIcon("D:\\Java\\Eclipse\\Horoscopes\\src\\com\\java\\swing\\horoscope\\"+people_1.birthday()+".jpg"));
         
         JButton doneBtn_1 = new JButton("Done");
         doneBtn_1.addMouseListener(new MouseAdapter() {
@@ -264,6 +274,7 @@ public class Interfacelayer {
         		textArea.setText("");
 //        		System.out.println(people_1.getDate()+" "+people_1.isSex());
         		people_1.birthday();
+        		picLabel_1.setIcon(new ImageIcon("D:\\Java\\Eclipse\\Horoscopes\\src\\com\\java\\swing\\horoscope\\"+people_1.birthday()+".jpg"));
         		for(int i=0;i<3;i++) {
 //        			System.out.println(people_1.EZ().list.get(i));
         			textArea.append(people_1.EZ(0).list.get(i));
@@ -319,10 +330,10 @@ public class Interfacelayer {
 		labelRight.setBounds(10, 10, 100, 35);
 		rightPanel.add(labelRight);
 		
-		JLabel label_2 = new JLabel("\u8BF7\u9009\u62E9\u51FA\u751F\u5E74\u6708\u65E5\uFF1A");
-		label_2.setFont(new Font("微软雅黑", Font.BOLD, 15));
-		label_2.setBounds(10, 51, 150, 35);
-		rightPanel.add(label_2);
+		JLabel birthLabel_2 = new JLabel("\u8BF7\u9009\u62E9\u51FA\u751F\u5E74\u6708\u65E5\uFF1A");
+		birthLabel_2.setFont(new Font("微软雅黑", Font.BOLD, 15));
+		birthLabel_2.setBounds(10, 51, 150, 35);
+		rightPanel.add(birthLabel_2);
 				
 		/**
          * 日历控件
@@ -348,6 +359,9 @@ public class Interfacelayer {
         	
         });
         
+        /**
+         * 文字面板
+         * */
         JScrollPane scrollPane_2 = new JScrollPane();
 		scrollPane_2.setBounds(230, 102, 249, 277);
 		rightPanel.add(scrollPane_2);
@@ -358,12 +372,27 @@ public class Interfacelayer {
         textArea_2.setWrapStyleWord(true);
 		scrollPane_2.setViewportView(textArea_2);
         
+		
+		 /**
+         * 图片面包
+         * */
+		JPanel picPanel_2 = new JPanel();
+		picPanel_2.setBorder(BorderFactory.createTitledBorder("E-Z"));
+		picPanel_2.setBounds(2, 96, 232, 286);
+		rightPanel.add(picPanel_2);
+		JLabel picLabel_2 = new JLabel();
+		picLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		picLabel_2.setBounds(2, 0, 210, 245);
+		picPanel_2.add(picLabel_2);
+		//picLabel_2.setIcon(new ImageIcon("D:\\Java\\Eclipse\\Horoscopes\\src\\com\\java\\swing\\horoscope\\"+people_2.birthday()+".jpg"));
+		
         JButton doneBtn_2 = new JButton("Done");
 		doneBtn_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				textArea_2.setText("");
 				people_2.birthday();
+				picLabel_2.setIcon(new ImageIcon("D:\\Java\\Eclipse\\Horoscopes\\src\\com\\java\\swing\\horoscope\\"+people_2.birthday()+".jpg"));
         		for(int i=0;i<3;i++) {
         			textArea_2.append(people_2.EZ(0).list.get(i));
         			if(i!=2)
@@ -374,7 +403,7 @@ public class Interfacelayer {
 		doneBtn_2.setFont(new Font("Segoe Script", Font.BOLD, 15));
 		doneBtn_2.setBounds(368, 53, 73, 33);
 		rightPanel.add(doneBtn_2);
-				
+		
 		
 		/**
 		 * 下方面板及其控件
