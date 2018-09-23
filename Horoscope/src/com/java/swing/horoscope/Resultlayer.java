@@ -43,5 +43,4 @@ public class Resultlayer {
 		frmResult.setLocationRelativeTo(null);//窗体居中显示
 		frmResult.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
-
 }
