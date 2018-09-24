@@ -9,7 +9,7 @@ import javax.swing.SwingConstants;
 public class People {
 
 	private boolean sex = false;
-	private String date = null;
+	private String date = "1970-01-01";
 	private int month = 0;
 	private int day = 0;
 	Datas data;
