@@ -1,5 +1,6 @@
 # Horoscope
 ### 已实现的功能
+
 * 界面布局
 * 日历控件
 * 后台接收性别及日期
@@ -9,5 +10,6 @@
 * **匹配功能**
 * 匹配后弹出新窗口，展示结果
 * 界面美化
-
-![预览]https://github.com/Akanemiku/Constellation/blob/master/Picture/preview.jpg
+---
+##### Preview:
+![预览](https://github.com/Akanemiku/Constellation/blob/master/Picture/preview.jpg)
