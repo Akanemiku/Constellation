@@ -2,351 +2,112 @@
 #include<cstdlib>
 #include<ctime>
 using namespace std;
-
-unsigned char** new_array2d(unsigned int row, unsigned int column)
+class Student
 {
-     unsigned char **array2d = new unsigned char*[row];
-     for(int i=0;i<row;i++)
-     {
-         array2d[i] = new unsigned char[column];
-     }
-     return array2d;
-}
-void delete_array2d(unsigned char** array2d, unsigned int row)
-{
-    for(int i=0;i<row;i++)
+public:
+    Student()
     {
-        delete []array2d[i];
+        //to do
     }
-	delete[] array2d;
-    array2d = NULL;		//避免野指针
-}
-void set_array2d(unsigned char** array2d, unsigned int row, unsigned int column)
-{
-      for(int i=0;i<row;i++)
-        for(int j=0;j<column;j++){
-            array2d[i][j] = rand()%256;//0-255
-        }
-}
-unsigned int* histgram(unsigned char** array2d, unsigned int row, unsigned int column)
-{
-    unsigned int *arr = new unsigned int[256];
-	for(int i=0;i<256;i++)
-		arr[i] = 0;
-    for(int i=0;i<row;i++){
-		for(int j=0;j<column;j++){
-			arr[array2d[i][j]]++;
-		}
-	}
-	return arr;
-}
-void print_array(unsigned int* array1d, unsigned int n)
-{
-    for(int i=0;i<n;i++)
-        cout<<(int)array1d[i]<<" ";
-    cout<<endl;
-}
-void print_array2d(unsigned char** array2d, unsigned int row, unsigned int column)
-{
-    for(int i=0;i<row;i++)
+    Student(int number, int score)
     {
-        for(int j=0;j<column;j++)
-            cout<<(int)array2d[i][j]<<" ";
-        cout<<endl;
+        set_number(number);
+        set_score(score);
     }
-}
-
-unsigned char** get_sub_array(unsigned char** array2d, unsigned int row_index, unsigned int column_index, unsigned int height, unsigned int width)
-{
-    unsigned char **sub = new unsigned char*[height+1];
-    for(int i=0;i<height;i++)
-        sub[i] = new unsigned char[width];
-	
-    int a=0,b=0;
-    for(int i=row_index;i<(row_index + height);i++,a++)
+    void set_number(int number)
     {
-        for(int j=column_index;j<(column_index + width);j++,b++)
+        this->number_ = number;
+    }
+    int get_number()
+    {
+        return this->number_;
+    }
+    void set_score(int score)
+    {
+        this->score_ = score;
+    }
+    int get_score()
+    {
+        return this->score_;
+    }
+    void Display()//打印学号和成绩
+    {
+        cout<<"学号："<<number_<<"\t"<<"成绩："<<score_<<endl;
+    }
+private:
+    int number_;
+    float score_;
+};
+class Classes
+{
+public:
+    int total_numbers_; //学生总数
+    int max_score_; //最高分
+    int min_score_; //最低分
+    float avg_score_; //平均分
+    Classes() //构造函数
+    {
+
+    }
+    Classes(int n) //构造函数，输入学生总人数
+    {
+        total_numbers_ = n;
+        GenerateStudentsList();
+    }
+    ~Classes()//析构函数，释放内存
+    {
+        delete []students_;
+    }
+    void Display() //显示最高分、最低分和平均分
+    {
+        FindMaxMinAvgScore();
+    }
+private:
+    Student* students_; //存放学生对象的数组指针
+    //generate_students 生成n个学生组成的数组，学号按顺序1~n表示，成绩为0~100随机数
+    void GenerateStudentsList()
+    {
+        srand((int)time(NULL));
+        students_ = new Student[total_numbers_];
+        for(int i=0;i<total_numbers_;i++)
         {
-            sub[a][b] = array2d[i][j];
+            students_[i].set_number(i+1);
+            students_[i].set_score(rand()%101);
         }
-    }
-	return sub;
 
-}
-void gray_to_binary(unsigned char** array2d, unsigned int row, unsigned int column)
-{
-   for(int i=0;i<row;i++)
-   {
-       for(int j=0;j<column;j++)
-       {
-           if((int)array2d[i][j]>=128)
-               array2d[i][j] = 1;
-           else
-               array2d[i][j] = 0;
-       }
-   }
-}
-unsigned int find_min_value(unsigned char** array2d)
-{
-  // to do list
-}
+    }
+    //找出最高分、最低分的学生，输出学号和成绩，并计算平均分
+    void FindMaxMinAvgScore()
+    {
+        max_score_ = 0;
+        int max_index = -1;
+        min_score_ = 101;
+        int min_index = -1;
+        int sum = 0;
+        for(int i=0;i<total_numbers_;i++)
+        {
+            sum += students_[i].get_score();
+            if(students_[i].get_score()>max_score_)
+            {
+                max_score_ = students_[i].get_score();
+                max_index = i;
+            }
+            if(students_[i].get_score()<min_score_)
+            {
+                min_score_ = students_[i].get_score();
+                min_index = i;
+            }
+        }
+        avg_score_ = sum/total_numbers_;
+        cout<<"最高分学生:\n";
+        students_[max_index].Display();
+        cout<<"\n最低分学生：\n";
+        students_[min_index].Display();
+        cout<<"\n平均分："<<avg_score_<<endl;
+    }
+};
 int main()
 {
-    srand((unsigned)time(NULL));
-    unsigned int row = 0;
-    unsigned int column = 0;
-    cin >> row >> column;
-
-    unsigned char** array2d = new_array2d(row, column);
-    set_array2d(array2d, row, column);
-    cout << "Oringin array" << endl;
-    print_array2d(array2d, row, column);
-
-    unsigned int* hist = histgram(array2d, row, column);
-    cout << "Histgram" << endl;
-    print_array(hist, 256);
-
-    unsigned char** sub_array_2d = get_sub_array(array2d, 1, 1, 3, 3);
-    cout << "Sub array" << endl;
-    print_array2d(sub_array_2d, 3, 3);
-
-    gray_to_binary(sub_array_2d, 3, 3);
-    cout << "Binary sub array" << endl;
-    print_array2d(sub_array_2d, 3, 3);
-    /*
-    unsigned int min_value = find_min_value(sub_array_2d);
-    cout << "The min value is " << min_value << endl;
-    cout << "Now free memeory" << endl;
-    delete_array2d(array2d, row);
-    delete_array2d(sub_array_2d, 3);
-    delete [] hist;
-    cin.get();
-    */
-    return(0);
+    Classes classes(100);
+    classes.Display();
 }
-
-
-
-
-
-#include<iostream>
-#include<stdlib.h>
-#include<iomanip>
-#include<string>
-#include<sstream> 
-#include<math.h>
-#include<bitset>
-using namespace std;
-
-unsigned char** new_array2d(unsigned int row, unsigned int column)  
-{  
-	unsigned char** p = new unsigned char*[row];
-	for(int i = 0; i < row; i++){
-		p[i] = new unsigned char[column];
-	}
-	return p;
-}  
-
-  
-
-void delete_array2d(unsigned char** array2d, unsigned int row)  
-{  
-	for(int i = 0; i < row; i++){
-		delete[] array2d[i];
-	}
-	delete[] array2d;
-	array2d = NULL;            //彻底删除指针，防微杜渐 
-}  
-
-  
-
-void set_array2d(unsigned char** array2d, unsigned int row, unsigned int column)  
-{  
-	for(int i = 0; i < row ; i++){
-		for(int j = 0; j < column; j++){
-			array2d[i][j] = rand()%(255 + 1);  //取值范围 0-255 
-		}
-	}
-
-}  
-
-  
-
-unsigned int* histgram(unsigned char** array2d, unsigned int row, unsigned int column)  
-{  
-	unsigned int* p = new unsigned int[256];
-	for(int i = 0; i < 256; i++){
-		p[i] = 0;
-	}
-	for(int i = 0; i < row; i++){
-		for(int j = 0; j < column; j++){
-			p[array2d[i][j]]++;
-		}
-	}
-	return p;
-
-}  
-
-  
-
-void print_array1d(unsigned int* array1d, unsigned int n)  
-{  
-	for(int i = 0; i < n; i++){
-		cout<<(int)*(array1d + i)<< " ";
-		if((i+1)%20 == 0)  cout<<"\n";
-	}
-	cout<<endl;
-}  
-
-  
-
-  
-
-void print_array2d(unsigned char** array2d, unsigned int row, unsigned int column)  
-{  
-	for(int i = 0; i < row ; i++){
-		for(int j = 0; j < column; j++){
-			cout<<setw(3)<<(int)*(*(array2d + i) + j)<<" ";
-		}
-		cout<<"\n";
-	}
-
-}  
-
-  
-
-unsigned char** get_sub_array(unsigned char** array2d, unsigned int row_index, unsigned int column_index, unsigned int height, unsigned int width)  
-{  
-	unsigned char **p = new unsigned char*[height];
-	for(int i = 0; i < height; i++){
-		*(p + i) = new unsigned char[width];
-	}
-	
-	for(int i = row_index, m = 0; i < (row_index + height); i++, m++){
-		for(int j = column_index, n = 0; j < (column_index + width); j++, n++){
-			p[m][n] = array2d[i][j];
-		}
-	}
-	
-	return p;
-
-}  
-
-  
-
-void gray_to_binary(unsigned char** array2d, unsigned int row, unsigned int column)  
-{  	
-	for(int i = 0; i < row; i++){
-		for(int j = 0; j < column; j++){
-			if((int)array2d[i][j] >= 128)  array2d[i][j] = 1;
-			else array2d[i][j] = 0;
-		}
-	}
-
-}  
-
-int func_binary(int n){              //二进制转换成十进制 
-	int k = 0, sum = 0;
-	while(n > 0){
-		sum += (n%10)*pow(2, k);
-		k++;
-		n /= 10;
-	}
-	
-	return sum;
-}
-unsigned int find_min_value(unsigned char** array2d)  
-{  
-	int p[4][8];
-	int a[9] = {array2d[0][0], array2d[0][1], array2d[0][2],            //所获得的3x3的二维数组按顺时针取值a0,a1,a2,a3,a4,a5,a6,a7,a8 
-				array2d[1][2], array2d[2][2], array2d[2][1],
-				array2d[2][0], array2d[1][0], array2d[1][1]};
-	for(int i = 0; i < 4; i++){
-		for(int j = 0; j < 8; j++){                                 //p[i][j]数组： 
-			if(i == 0)  p[i][j] = a[j]^a[8];                       //a0，a1，a2，a3，a4，a5，a6，a7
-			else if(i == 1) p[i][j] = a[(j+2)%8]^a[8];            //a2，a3，a4，a5，a6，a7，a0，a1
-			else if(i == 2) p[i][j] = a[(j+4)%8]^a[8];           //a4，a5，a6，a7，a0，a1，a2，a3
-			else if(i == 3) p[i][j] = a[((j+6)%8)]^a[8];        //a6，a7，a0，a1，a2，a3，a4，a5
-			
-		}
-	}
-	
-	string s[4];
-	for(int i = 0; i < 4; i++){
-		for(int j = 0; j < 8; j++){  
-			char c[2];
-			itoa(p[i][j], c, 10);           
-			s[i].append(c);                        //将离散值0，1合并且转换成字符串               
-		}
-	}
-	
-	int m[4];
-	bitset<8> bint;
-	for(int i = 0; i < 4; i++){
-		stringstream ss;
-		ss<<s[i];
-		ss>>m[i];                               //将字符串转换成整型 
-		
-		m[i] = func_binary(m[i]);              //将二进制转换成十进制 
-	}
-	
-	int min = m[0];
-	for(int i = 1; i < 4; i++){              //找出最小值 
-		if(min > m[i])  min = m[i];           
-	}
-	
-	return min;
-
-}  
-
-int main()  
-{  
-
-    unsigned int row = 0;  
-    unsigned int column = 0;  
-    cin >> row >> column;  
-
-    unsigned char** array2d = new_array2d(row, column);  
-
-    set_array2d(array2d, row, column);  
-    
-    cout << "Oringin array" << endl;  
-
-    print_array2d(array2d, row, column);  
-
-    unsigned int* hist = histgram(array2d, row, column);  
-
-    cout << "Histgram" << endl;  
-
-    print_array1d(hist, 256);  
-
-    unsigned char** sub_array_2d = get_sub_array(array2d, 1, 1, 3, 3);  
-	
-    cout << "Sub array" << endl;  
-
-    print_array2d(sub_array_2d, 3, 3);  
-
-    gray_to_binary(sub_array_2d, 3, 3);  
-
-    cout << "Binary sub array" << endl;  
-
-    print_array2d(sub_array_2d, 3, 3);
-
-	unsigned int min_value = find_min_value(sub_array_2d);
-
-	cout << "The min value is " << min_value << endl;  
-
-    cout << "Now free memeory" << endl;  
-
-    delete_array2d(array2d, row);  
-
-    delete_array2d(sub_array_2d, 3);  
-
-    delete [] hist;  
-
-    cin.get();  
-
-    return(0);  
-
-} 
-
