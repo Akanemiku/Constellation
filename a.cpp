@@ -34,6 +34,10 @@ public:
     {
         cout<<"学号："<<number_<<"\t"<<"成绩："<<score_<<endl;
     }
+    //Student& operater = (Student *p)
+    //{
+    //    return *p;
+    //}
 private:
     int number_;
     float score_;
@@ -71,8 +75,9 @@ private:
         students_ = new Student[total_numbers_];
         for(int i=0;i<total_numbers_;i++)
         {
-            students_[i].set_number(i+1);
-            students_[i].set_score(rand()%101);
+            students_[i] = Student(i+1,rand()%101);
+            //students_[i].set_number(i+1);
+            //students_[i].set_score(rand()%101);
         }
 
     }
